@@ -5,10 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [cnpj, setCnpj] = useState('');
   const [phone, setPhone] = useState(''); 
 
   const handleRegister = async () => {
-    if (!name || !surname || !email || !phone || !username || !password) {
+    if (!name || !cnpj || !email || !phone ) {
       Alert.alert('Validation Error', 'Please fill all the fields.');
       return;
     }
@@ -26,12 +27,12 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     try {
-      const newUser = { name, surname, email, phone, username, password };
+      const newUser = { name, cnpj, email, phone };
       let users = await AsyncStorage.getItem('users');
       users = users ? JSON.parse(users) : [];
       users.push(newUser);
       await AsyncStorage.setItem('users', JSON.stringify(users));
-      navigation.navigate('LoOn');
+      navigation.navigate('Home');
     } catch (error) {
       console.error('Failed to register user', error);
       Alert.alert('Registration Error', 'An error occurred while registering the user.');
@@ -57,14 +58,14 @@ const RegisterScreen = ({ navigation }) => {
       />
        <TextInput
         style={styles.input}
-        placeholder='CNPJ'
+        placeholder='cnpj'
         value={cnpj}
-        onChangeText={(text) => setCnpj(formatCNPJ(text))}
-        keyboardType='numeric'
+        onChangeText={setCnpj}
+        keyboardType='phone-pad'
       />
       <TextInput
         style={styles.input}
-        placeholder='Telefone'
+        placeholder='phone'
         value={phone}
         onChangeText={setPhone}
         keyboardType='phone-pad'
