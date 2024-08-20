@@ -179,7 +179,7 @@ export default function HomeScreen({ navigation }) {
        </View>
       <TouchableOpacity 
                   style={styles.buyButton} 
-                  onPress={() =>navigation.navigate('CarTable')}
+                  onPress={() =>navigation.navigate('List')}
                 >
                   <Text style={styles.buyButtonText}>Demostrar tabelas</Text>
                 </TouchableOpacity>
@@ -340,6 +340,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     backgroundColor: '#1E5E8B',
+    justifyContent: 'center',
   },
 
   productItemContainer: {
