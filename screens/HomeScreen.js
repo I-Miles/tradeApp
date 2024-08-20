@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Text, View, StyleSheet, Image, ScrollView, Modal, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView, Modal, TouchableOpacity, FlatList, Button } from 'react-native';
 
 const menuItems = [
   { title: 'Home', ref: 'homeRef',  },
@@ -22,12 +22,14 @@ const products = [
   { image: require('../assets/pictures/produtos7.jpeg'), name: 'Sakurai 272', price: 120000.00 },
   { image: require('../assets/pictures/produtos8.jpeg'), name: 'Sakurai 272 ', price: 115000.00 },
 ];
+
 const register = [
-  { image: require('../assets/pictures/produtos1.jpeg'), name: 'Fornecedor', },
   { image: require('../assets/pictures/produtos2.jpeg'), name: 'Produtos', },
-  { image: require('../assets/pictures/produtos2.jpeg'), name: 'Cliente' },
 ];
 
+const registercli = [
+  { image: require('../assets/pictures/produtos2.jpeg'), name: 'Cliente' },
+];
 
 export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -143,21 +145,16 @@ export default function HomeScreen({ navigation }) {
               <Image source={item.image} style={styles.productImage} />
               <View style={styles.productTextContainer}>
                 <Text style={styles.productName}>{item.name}</Text>
-                <TouchableOpacity 
-                  style={styles.buyButton} 
-                  onPress={() => handleBuyButtonPress(item)}
-                >
-                  <Text style={styles.buyButtonText}>Comprar</Text>
-                </TouchableOpacity>
+                <Button title="Cadastrar" onPress={() =>navigation.navigate('ProForn')}/>
               </View>
             </View>
           )}
           keyExtractor={(item) => item.name}
         />
       </View>
+      <Button title="Demostrar tabelas" onPress={() =>navigation.navigate('CarTable')}/>
       <View ref={aboutUsRef} style={styles.footer}>
         <Image source={require('../assets/pictures/logo.jpg')} style={styles.footerLogo} />
-        <Text style={styles.footerText}>A GRAPH.agile é líder no mercado, oferecendo soluções de impressão de alta qualidade e serviços completos.</Text>
       </View>
       <Modal visible={modalVisible} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
@@ -172,7 +169,6 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  // Seus estilos permanecem aqui
   container: {
     alignItems: 'center',
     backgroundColor: 'lightgray',
