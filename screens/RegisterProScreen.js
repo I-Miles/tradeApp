@@ -11,7 +11,7 @@ const RegisterScreen = ({ navigation }) => {
   const [phone, setPhone] = useState('');
 
   const formatCNPJ = (value) => {
-    value = value.replace(/\D/g, ''); // Remove non-numeric characters
+    value = value.replace(/\D/g, ''); 
     if (value.length <= 14) {
       value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
       value = value.replace(/(\d{2})$/, '-$1');
@@ -22,12 +22,6 @@ const RegisterScreen = ({ navigation }) => {
   const handleRegister = async () => {
     if (!name || !descri || !quanti || !forn || !cnpj || !phone) {
       Alert.alert('Validation Error', 'Please fill all the fields.');
-      return;
-    }
-
-    const cnpjPattern = /^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/;
-    if (!cnpjPattern.test(cnpj)) {
-      Alert.alert('Validation Error', 'Please enter a valid CNPJ.');
       return;
     }
 
