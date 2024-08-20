@@ -6,7 +6,7 @@ const CheckoutScreen = ({ route, navigation }) => {
   const [cart, setCart] = useState(products);
 
   const removeFromCart = (product) => {
-    setCart(cart.filter(item => item !== product));
+    setCart(cart.filter(item => product !== item));
   };
 
   const calculateTotalPrice = () => {
@@ -26,10 +26,7 @@ const CheckoutScreen = ({ route, navigation }) => {
           <View style={styles.itemContainer}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.itemPrice}>{`R$${item.price.toFixed(2)}`}</Text>
-            <TouchableOpacity 
-              style={styles.removeButton} 
-              onPress={() => removeFromCart(item)}
-            >
+            <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item)}>
               <Text style={styles.removeButtonText}>Remover</Text>
             </TouchableOpacity>
           </View>
@@ -46,7 +43,7 @@ const CheckoutScreen = ({ route, navigation }) => {
       <Button
         title="Finalizar Compra"
         onPress={handleFinalizePurchase}
-        color="green"
+        color="#004AAD"
       />
     </View>
   );
@@ -56,12 +53,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: '#1E5E8B',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: 'white',
   },
   itemContainer: {
     flexDirection: 'row',
@@ -72,10 +70,11 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 16,
+    color:'white'
   },
   itemPrice: {
     fontSize: 16,
-    color: 'green',
+    color: 'white',
   },
   removeButton: {
     backgroundColor: 'red',
@@ -95,6 +94,7 @@ const styles = StyleSheet.create({
   totalText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'white'
   },
 });
 
