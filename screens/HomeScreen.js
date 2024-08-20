@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Text, View, StyleSheet, Image, ScrollView, Modal, TouchableOpacity, FlatList, Button } from 'react-native';
 
 const menuItems = [
-  { title: 'Home'},
+  { title: 'Destaques'},
   { title: 'Equipamentos'},
   { title: 'Cadastro'},
 ];
@@ -206,6 +206,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E5E8B',
   },
 
+  center: {
+    marginLeft: 14,
+    padding: 15,
+  },
+
   header: {
     flexDirection: 'row', 
     justifyContent: 'space-between', 
@@ -402,7 +407,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderTopWidth: 1,
-    borderTopColor: 'gray',
+    borderTopColor: '#1E5E8B',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.3,
