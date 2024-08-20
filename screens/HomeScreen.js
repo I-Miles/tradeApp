@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 import { Text, View, StyleSheet, Image, ScrollView, Modal, TouchableOpacity, FlatList, Button } from 'react-native';
 
 const menuItems = [
-  { title: 'Home', ref: 'homeRef',  },
-  { title: 'Equipamentos', ref: 'equipmentsRef' },
-  { title: 'Quem Somos ?', ref: 'aboutUsRef' },
+  { title: 'Home'},
+  { title: 'Equipamentos'},
+  { title: 'Cadastro'},
 ];
 
 const featuredItems = [
@@ -132,6 +132,7 @@ export default function HomeScreen({ navigation }) {
           keyExtractor={(item) => item.name}
         />
       </View>
+    <View style={styles.center}>
       <View ref={equipmentsRef} style={styles.productsContainer}>
         <Text style={styles.sectionTitle}>Cadastros</Text>
         <FlatList
@@ -177,6 +178,7 @@ export default function HomeScreen({ navigation }) {
           keyExtractor={(item) => item.name}
         />
        </View>
+    </View>
       <TouchableOpacity 
                   style={styles.buyButton} 
                   onPress={() =>navigation.navigate('List')}
@@ -201,7 +203,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1E5E8B',
   },
 
   header: {
