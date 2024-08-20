@@ -143,7 +143,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  // Seus estilos permanecem aqui
+  // Seus estilos permanecem aqui gay
   container: {
     alignItems: 'center',
     backgroundColor: 'lightgray',
