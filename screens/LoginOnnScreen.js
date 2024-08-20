@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/pictures/logo.jpg')} style={styles.logo} />
+      <Image source={require('../assets/pictures/trade.agile.png')} style={styles.logo} />
       <TextInput
         placeholder="Usuário"
         value={username}
@@ -52,20 +52,20 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   text: {
     padding: 20,
+    color:'#fff'
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'lightgray', 
+    backgroundColor: '#1E5E8B', 
   },
   
   logo: {
-    width: 200, 
+    width: 300, 
     height: 200, 
-    marginBottom: 20,
-    borderRadius: 100,
+    
   },
 
   input: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: 'navy',
+    backgroundColor: '#FFDE59',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 5,
@@ -93,8 +93,9 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: '#fff',
+    color: '#00000',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
