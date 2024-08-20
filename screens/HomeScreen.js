@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Text, View, StyleSheet, Image, ScrollView, Modal, TouchableOpacity, FlatList } from 'react-native';
 
 const menuItems = [
-  { title: 'Home', ref: 'homeRef' },
+  { title: 'Home', ref: 'homeRef',  },
   { title: 'Equipamentos', ref: 'equipmentsRef' },
   { title: 'Quem Somos ?', ref: 'aboutUsRef' },
 ];
@@ -22,6 +22,12 @@ const products = [
   { image: require('../assets/pictures/produtos7.jpeg'), name: 'Sakurai 272', price: 120000.00 },
   { image: require('../assets/pictures/produtos8.jpeg'), name: 'Sakurai 272 ', price: 115000.00 },
 ];
+const register = [
+  { image: require('../assets/pictures/produtos1.jpeg'), name: 'Fornecedor', },
+  { image: require('../assets/pictures/produtos2.jpeg'), name: 'Produtos', },
+  { image: require('../assets/pictures/produtos2.jpeg'), name: 'Cliente' },
+];
+
 
 export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -126,6 +132,29 @@ export default function HomeScreen({ navigation }) {
           Máquinas gráficas são ferramentas essenciais para a aplicação de tinta ou corante em superfícies, usadas em diversas áreas como arte, impressão e educação. Elas podem ser manuais ou automatizadas e são comuns em estúdios de arte, escolas, escritórios, laboratórios e fábricas de impressão, facilitando a reprodução de imagens, textos e materiais promocionais.
         </Text>
       </View>
+      <View ref={equipmentsRef} style={styles.productsContainer}>
+        <Text style={styles.sectionTitle}>Equipamentos</Text>
+        <FlatList
+          data={register}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <View style={styles.productItemContainer}>
+              <Image source={item.image} style={styles.productImage} />
+              <View style={styles.productTextContainer}>
+                <Text style={styles.productName}>{item.name}</Text>
+                <TouchableOpacity 
+                  style={styles.buyButton} 
+                  onPress={() => handleBuyButtonPress(item)}
+                >
+                  <Text style={styles.buyButtonText}>Comprar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+          keyExtractor={(item) => item.name}
+        />
+      </View>
       <View ref={aboutUsRef} style={styles.footer}>
         <Image source={require('../assets/pictures/logo.jpg')} style={styles.footerLogo} />
         <Text style={styles.footerText}>A GRAPH.agile é líder no mercado, oferecendo soluções de impressão de alta qualidade e serviços completos.</Text>
@@ -143,7 +172,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  // Seus estilos permanecem aqui gay
+  // Seus estilos permanecem aqui
   container: {
     alignItems: 'center',
     backgroundColor: 'lightgray',
