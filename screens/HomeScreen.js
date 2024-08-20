@@ -27,10 +27,6 @@ const register = [
   { image: require('../assets/pictures/produtos2.jpeg'), name: 'Produtos', },
 ];
 
-const registercli = [
-  { image: require('../assets/pictures/produtos2.jpeg'), name: 'Cliente' },
-];
-
 export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -48,6 +44,11 @@ export default function HomeScreen({ navigation }) {
   const closeModal = () => {
     setSelectedImage(null);
     setModalVisible(false);
+  };
+
+  const showUsersJson = () => {
+    const json = JSON.stringify(users, null, 2);
+    Alert.alert('Dados dos Usuários', json);
   };
 
   const handleMenuItemPress = (ref) => {
@@ -152,7 +153,7 @@ export default function HomeScreen({ navigation }) {
           keyExtractor={(item) => item.name}
         />
       </View>
-      <Button title="Demostrar tabelas" onPress={() =>navigation.navigate('CarTable')}/>
+      <Button title="Exibir JSON" onPress={showUsersJson} />
       <View ref={aboutUsRef} style={styles.footer}>
         <Image source={require('../assets/pictures/logo.jpg')} style={styles.footerLogo} />
       </View>
@@ -400,17 +401,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 3,
-  },
-
-  footerText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    elevation: 1,
   },
 
   modalContainer: {
