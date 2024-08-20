@@ -51,7 +51,7 @@ const ListScreen = ({ navigation }) => {
           </View>
         )}
       />
-      <Button title="Exibir JSON" onPress={showUsersJson} />
+      <Button style={styles.buyButton} title="Exibir JSON" onPress={showUsersJson} />
     </View>
   );
 };
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#F44336',
+    backgroundColor: '#1E5E8B',
   },
   userItem: {
     padding: 20,
@@ -75,6 +75,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
   },
+  buyButton: {
+    backgroundColor: '#FFDE59',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+
 });
 
 export default ListScreen;
