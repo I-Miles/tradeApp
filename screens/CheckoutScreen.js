@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Button } from 'react-native';
 
 const CheckoutScreen = ({ route, navigation }) => {
   const { products } = route.params;
-  const [cart, setCart] = useState(products);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    setCart(products);
+  }, [products]);
 
   const removeFromCart = (product) => {
-    setCart(cart.filter(item => product !== item));
+    setCart(prevCart => prevCart.filter(item => item !== product));
   };
 
   const calculateTotalPrice = () => {
@@ -31,7 +35,7 @@ const CheckoutScreen = ({ route, navigation }) => {
             </TouchableOpacity>
           </View>
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item, index) => `${item.name}-${index}`}
       />
       <View style={styles.totalContainer}>
         <Text style={styles.totalText}>Total: {`R$${calculateTotalPrice()}`}</Text>
@@ -48,7 +52,6 @@ const CheckoutScreen = ({ route, navigation }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
