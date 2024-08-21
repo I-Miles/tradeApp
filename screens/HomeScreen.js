@@ -62,11 +62,13 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-  const handleBuyButtonPress = (product) => {
-    setSelectedProducts([...selectedProducts, product]);
-    navigation.navigate('Checkout', { products: selectedProducts });
+const handleBuyButtonPress = (product) => {
+    setSelectedProducts(prevProducts => {
+      const updatedProducts = [...prevProducts, product];
+      navigation.navigate('Checkout', { products: updatedProducts });
+      return updatedProducts;
+    });
   };
-
   const calculateTotalPrice = () => {
     return selectedProducts.reduce((total, product) => total + product.price, 0).toFixed(2);
   };
