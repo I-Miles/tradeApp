@@ -10,13 +10,21 @@ const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const formatPhoneNumber = (number) => {
-    const cleaned = ('' + number).replace(/\D/g, '');
-    const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-    if (match) {
-      return `(${match[1]}) ${match[2]}-${match[3]}`;
+  // Function to format phone number and limit to 11 characters
+  const formatPhoneNumber = (value) => {
+    // Remove non-digit characters
+    value = value.replace(/\D/g, '');
+    // Limit to 11 characters
+    if (value.length > 11) {
+      value = value.substring(0, 11);
     }
-    return number;
+    // Apply formatting
+    if (value.length <= 10) {
+      value = value.replace(/^(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3');
+    } else {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+    return value;
   };
 
   const handlePhoneChange = (text) => {
@@ -97,7 +105,7 @@ const RegisterScreen = ({ navigation }) => {
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Cadastrar</Text>
+        <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: '#00000',
+    color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
   },
