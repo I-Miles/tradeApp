@@ -10,15 +10,15 @@ const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // Function to format phone number and limit to 11 characters
+ 
   const formatPhoneNumber = (value) => {
-    // Remove non-digit characters
+   
     value = value.replace(/\D/g, '');
-    // Limit to 11 characters
+
     if (value.length > 11) {
       value = value.substring(0, 11);
     }
-    // Apply formatting
+   
     if (value.length <= 10) {
       value = value.replace(/^(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3');
     } else {
