@@ -6,7 +6,40 @@ const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cnpj, setCnpj] = useState('');
-  const [phone, setPhone] = useState(''); 
+  const [phone, setPhone] = useState('');
+
+
+  const formatCNPJ = (value) => {
+    value = value.replace(/\D/g, ''); 
+    if (value.length <= 14) {
+      value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+    return value;
+  };
+
+  const formatPhoneNumber = (value) => {
+    value = value.replace(/\D/g, ''); 
+    if (value.length > 11) {
+      value = value.substring(0, 11); 
+    }
+    if (value.length <= 10) {
+      value = value.replace(/^(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3');
+    } else {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+    return value;
+  };
+
+  const handleCnpjChange = (text) => {
+    const formattedCNPJ = formatCNPJ(text);
+    if (formattedCNPJ.length <= 18) {
+      setCnpj(formattedCNPJ); 
+    }
+  };
+
+  const handlePhoneChange = (text) => {
+    setPhone(formatPhoneNumber(text));
+  };
 
   const handleRegister = async () => {
     if (!name || !cnpj || !email || !phone ) {
@@ -20,9 +53,15 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    const phonePattern = /^[0-9]{10,15}$/; 
+    const phonePattern = /^\(\d{2}\) \d{5}-\d{4}$/; 
     if (!phonePattern.test(phone)) {
       Alert.alert('Validation Error', 'Please enter a valid phone number.');
+      return;
+    }
+
+    const cnpjPattern = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+    if (!cnpjPattern.test(cnpj)) {
+      Alert.alert('Validation Error', 'Please enter a valid CNPJ.');
       return;
     }
 
@@ -56,18 +95,18 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={setEmail}
         keyboardType='email-address'
       />
-       <TextInput
+      <TextInput
         style={styles.input}
-        placeholder='cnpj'
+        placeholder='CNPJ'
         value={cnpj}
-        onChangeText={setCnpj}
-        keyboardType='phone-pad'
+        onChangeText={handleCnpjChange}
+        keyboardType='numeric'
       />
       <TextInput
         style={styles.input}
-        placeholder='phone'
+        placeholder='Telefone'
         value={phone}
-        onChangeText={setPhone}
+        onChangeText={handlePhoneChange}
         keyboardType='phone-pad'
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
@@ -110,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: '#00000',
+    color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
   },
