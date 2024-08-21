@@ -9,15 +9,15 @@ const RegisterScreen = ({ navigation }) => {
   const [forn, setForn] = useState(''); 
   const [phone, setPhone] = useState('');
 
-  // Function to format phone number and limit to 11 characters
+  
   const formatPhoneNumber = (value) => {
-    // Remove any non-digit characters
+
     value = value.replace(/\D/g, '');
-    // Limit to 11 characters
+   
     if (value.length > 11) {
       value = value.substring(0, 11);
     }
-    // Apply formatting
+  
     if (value.length <= 10) {
       value = value.replace(/^(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3');
     } else {
@@ -36,7 +36,6 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    // Validate phone number
     const phonePattern = /^\(\d{2}\) \d{5}-\d{4}$/;
     if (!phonePattern.test(phone)) {
       Alert.alert('Validation Error', 'Please enter a valid phone number.');
