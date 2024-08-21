@@ -9,28 +9,41 @@ const RegisterScreen = ({ navigation }) => {
   const [forn, setForn] = useState(''); 
   const [phone, setPhone] = useState('');
 
-  const formatCNPJ = (value) => {
-    value = value.replace(/\D/g, ''); 
-    if (value.length <= 14) {
-      value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
-      value = value.replace(/(\d{2})$/, '-$1');
+  // Function to format phone number and limit to 11 characters
+  const formatPhoneNumber = (value) => {
+    // Remove any non-digit characters
+    value = value.replace(/\D/g, '');
+    // Limit to 11 characters
+    if (value.length > 11) {
+      value = value.substring(0, 11);
+    }
+    // Apply formatting
+    if (value.length <= 10) {
+      value = value.replace(/^(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3');
+    } else {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     }
     return value;
   };
 
+  const handlePhoneChange = (text) => {
+    setPhone(formatPhoneNumber(text));
+  };
+
   const handleRegister = async () => {
-    if (!name || !descri || !quanti || !forn|| !phone) {
+    if (!name || !descri || !quanti || !forn || !phone) {
       Alert.alert('Validation Error', 'Please fill all the fields.');
       return;
     }
 
-    const phonePattern = /^[0-9]{10,15}$/; 
+    // Validate phone number
+    const phonePattern = /^\(\d{2}\) \d{5}-\d{4}$/;
     if (!phonePattern.test(phone)) {
       Alert.alert('Validation Error', 'Please enter a valid phone number.');
       return;
     }
 
-   try {
+    try {
       const newUser = { name, descri, quanti, forn, phone };
       let users = await AsyncStorage.getItem('users');
       users = users ? JSON.parse(users) : [];
@@ -63,7 +76,7 @@ const RegisterScreen = ({ navigation }) => {
         placeholder='Quantidade'
         value={quanti}
         onChangeText={setQuanti}
-        keyboardType='phone-pad'
+        keyboardType='numeric'
       />
       <TextInput
         style={styles.input}
@@ -75,7 +88,7 @@ const RegisterScreen = ({ navigation }) => {
         style={styles.input}
         placeholder='Telefone'
         value={phone}
-        onChangeText={setPhone}
+        onChangeText={handlePhoneChange}
         keyboardType='phone-pad'
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
