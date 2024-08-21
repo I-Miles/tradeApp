@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, ScrollView, Modal, TouchableOpacity, FlatList, Button } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const menuItems = [
   { title: 'Destaques'},
@@ -13,16 +14,15 @@ const featuredItems = [
 ];
 
 const products = [
-  { image: require('../assets/pictures/produtos1.jpeg'), name: 'Solna 125 Plus', price: 8500.00 },
-  { image: require('../assets/pictures/produtos2.jpeg'), name: 'Solna 132 60×80', price: 18500.00 },
-  { image: require('../assets/pictures/produtos3.jpeg'), name: 'Solna 225 bicolor', price: 15000.00 },
-  { image: require('../assets/pictures/produtos4.jpeg'), name: 'Ryoby 780E 4 ', price: 650000.00 },
-  { image: require('../assets/pictures/produtos5.jpeg'), name: 'Sakurai 252E', price: 50000.00 },
-  { image: require('../assets/pictures/produtos6.jpeg'), name: 'Sakurai 258 EP 2', price: 60000.00 },
-  { image: require('../assets/pictures/produtos7.jpeg'), name: 'Sakurai 272', price: 120000.00 },
-  { image: require('../assets/pictures/produtos8.jpeg'), name: 'Sakurai 272 ', price: 115000.00 },
+  { id: 1, image: require('../assets/pictures/produtos1.jpeg'), name: 'Solna 125 Plus', price: 8500.00 },
+  { id: 2, image: require('../assets/pictures/produtos2.jpeg'), name: 'Solna 132 60×80', price: 18500.00 },
+  { id: 3, image: require('../assets/pictures/produtos3.jpeg'), name: 'Solna 225 bicolor', price: 15000.00 },
+  { id: 4, image: require('../assets/pictures/produtos4.jpeg'), name: 'Ryoby 780E 4 ', price: 650000.00 },
+  { id: 5, image: require('../assets/pictures/produtos5.jpeg'), name: 'Sakurai 252E', price: 50000.00 },
+  { id: 6, image: require('../assets/pictures/produtos6.jpeg'), name: 'Sakurai 258 EP 2', price: 60000.00 },
+  { id: 7, image: require('../assets/pictures/produtos7.jpeg'), name: 'Sakurai 272', price: 120000.00 },
+  { id: 8, image: require('../assets/pictures/produtos8.jpeg'), name: 'Sakurai 272 ', price: 115000.00 },
 ];
-
 const register = [
   { image: require('../assets/pictures/produtos2.jpeg'), name: 'Produtos', },
 ];
@@ -40,6 +40,7 @@ export default function HomeScreen({ navigation }) {
   const homeRef = useRef(null);
   const equipmentsRef = useRef(null);
   const aboutUsRef = useRef(null);
+ 
 
   const openModal = (image) => {
     setSelectedImage(image);
@@ -50,6 +51,13 @@ export default function HomeScreen({ navigation }) {
     setSelectedImage(null);
     setModalVisible(false);
   };
+  useFocusEffect(
+    React.useCallback(() => {
+      setSelectedProducts([]);
+    }, [])
+  );
+
+  
 
   const handleMenuItemPress = (ref) => {
     if (scrollViewRef.current && ref.current) {
@@ -62,16 +70,31 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-const handleBuyButtonPress = (product) => {
+  const handleBuyButtonPress = (product) => {
     setSelectedProducts(prevProducts => {
-      const updatedProducts = [...prevProducts, product];
-      navigation.navigate('Checkout', { products: updatedProducts });
-      return updatedProducts;
+      const existingProductIndex = prevProducts.findIndex(item => item.id === product.id);
+      if (existingProductIndex !== -1) {
+        // Se o produto já existe, aumentamos a quantidade
+        const updatedProducts = [...prevProducts];
+        updatedProducts[existingProductIndex] = {
+          ...updatedProducts[existingProductIndex],
+          quantity: updatedProducts[existingProductIndex].quantity + 1
+        };
+        return updatedProducts;
+      } else {
+        // Se é um novo produto, adicionamos com quantidade 1
+        return [...prevProducts, { ...product, quantity: 1 }];
+      }
     });
   };
   const calculateTotalPrice = () => {
     return selectedProducts.reduce((total, product) => total + product.price, 0).toFixed(2);
   };
+   useEffect(() => {
+    if (selectedProducts.length > 0) {
+      navigation.navigate('Checkout', { products: selectedProducts });
+    }
+  }, [selectedProducts]);
 
   return (
     <ScrollView 
