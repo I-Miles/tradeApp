@@ -10,6 +10,19 @@ const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const formatPhoneNumber = (number) => {
+    const cleaned = ('' + number).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return number;
+  };
+
+  const handlePhoneChange = (text) => {
+    setPhone(formatPhoneNumber(text));
+  };
+
   const handleRegister = async () => {
     if (!name || !surname || !email || !phone || !username || !password) {
       Alert.alert('Validation Error', 'Please fill all the fields.');
@@ -22,7 +35,7 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    const phonePattern = /^[0-9]{10,15}$/; 
+    const phonePattern = /^\(\d{2}\) \d{5}-\d{4}$/; 
     if (!phonePattern.test(phone)) {
       Alert.alert('Validation Error', 'Please enter a valid phone number.');
       return;
@@ -44,45 +57,44 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/pictures/trade.agile.png')} style={styles.logo} />
-
       <TextInput
         style={styles.input}
-        placeholder='Nome'
+        placeholder="Name"
         value={name}
         onChangeText={setName}
       />
       <TextInput
         style={styles.input}
-        placeholder='Sobrenome'
+        placeholder="Surname"
         value={surname}
         onChangeText={setSurname}
       />
       <TextInput
         style={styles.input}
-        placeholder='Email'
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        keyboardType='email-address'
+        keyboardType="email-address"
       />
       <TextInput
         style={styles.input}
-        placeholder='Telefone'
+        placeholder="Phone"
         value={phone}
-        onChangeText={setPhone}
-        keyboardType='phone-pad'
+        onChangeText={handlePhoneChange}
+        keyboardType="phone-pad"
       />
       <TextInput
         style={styles.input}
-        placeholder='Usuário'
+        placeholder="Username"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
-        placeholder='Senha'
-        secureTextEntry
+        placeholder="Password"
         value={password}
         onChangeText={setPassword}
+        secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Cadastrar</Text>
