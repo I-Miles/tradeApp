@@ -35,10 +35,9 @@ const CheckoutScreen = ({ route, navigation }) => {
         { 
           text: "Confirmar", 
           onPress: () => {
-            // Aqui você pode adicionar a lógica para processar a compra
-            Alert.alert("Compra Finalizada", "Obrigado pela sua compra!");
-            setCart([]); // Limpa o carrinho
-            navigation.navigate('Home');
+            
+            setCart([]); 
+            navigation.navigate('Confirmation'); 
           }
         }
       ]
@@ -94,12 +93,14 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#1E5E8B',
   },
+  
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     color: 'white',
   },
+
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -107,29 +108,24 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
+
   itemName: {
     fontSize: 16,
     color:'white'
   },
+
   itemPrice: {
     fontSize: 16,
     color: 'white',
   },
-  removeButton: {
-    backgroundColor: 'red',
-    padding: 5,
-    borderRadius: 5,
-  },
-  removeButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
+
   totalContainer: {
     marginVertical: 20,
     paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: '#ddd',
   },
+
   totalText: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -162,6 +158,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
 
 export default CheckoutScreen;
