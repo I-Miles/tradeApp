@@ -67,13 +67,13 @@ const RegisterScreen = ({ navigation }) => {
       <Image source={require('../assets/pictures/trade.agile.png')} style={styles.logo} />
       <TextInput
         style={styles.input}
-        placeholder="Name"
+        placeholder="Nome"
         value={name}
         onChangeText={setName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Surname"
+        placeholder="Sobrenome"
         value={surname}
         onChangeText={setSurname}
       />
@@ -86,20 +86,20 @@ const RegisterScreen = ({ navigation }) => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Phone"
+        placeholder="Telefone"
         value={phone}
         onChangeText={handlePhoneChange}
         keyboardType="phone-pad"
       />
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Usúario"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Senha"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
