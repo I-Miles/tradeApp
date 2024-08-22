@@ -74,7 +74,7 @@ const CheckoutScreen = ({ route, navigation }) => {
         <Text style={styles.totalText}>Total: {`R$${calculateTotalPrice()}`}</Text>
       </View>
       <Button
-        title="Comprar mais"
+        title="Selecionar outro Produto"
         onPress={() => navigation.navigate('Home')}
       />
       <Button
