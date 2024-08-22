@@ -57,9 +57,6 @@ export default function HomeScreen({ navigation }) {
     }, [])
   );
 
-  
-
-
   const handleBuyButtonPress = (product) => {
     setSelectedProducts(prevProducts => {
       const existingProductIndex = prevProducts.findIndex(item => item.id === product.id);
