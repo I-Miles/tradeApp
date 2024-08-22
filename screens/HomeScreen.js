@@ -59,22 +59,12 @@ export default function HomeScreen({ navigation }) {
 
   
 
-  const handleMenuItemPress = (ref) => {
-    if (scrollViewRef.current && ref.current) {
-      ref.current.measureLayout(
-        scrollViewRef.current.getScrollResponder().getScrollableNode(),
-        (x, y) => {
-          scrollViewRef.current.scrollTo({ y, animated: true });
-        }
-      );
-    }
-  };
 
   const handleBuyButtonPress = (product) => {
     setSelectedProducts(prevProducts => {
       const existingProductIndex = prevProducts.findIndex(item => item.id === product.id);
       if (existingProductIndex !== -1) {
-        // Se o produto já existe, aumentamos a quantidade
+      
         const updatedProducts = [...prevProducts];
         updatedProducts[existingProductIndex] = {
           ...updatedProducts[existingProductIndex],
@@ -82,14 +72,12 @@ export default function HomeScreen({ navigation }) {
         };
         return updatedProducts;
       } else {
-        // Se é um novo produto, adicionamos com quantidade 1
+       
         return [...prevProducts, { ...product, quantity: 1 }];
       }
     });
   };
-  const calculateTotalPrice = () => {
-    return selectedProducts.reduce((total, product) => total + product.price, 0).toFixed(2);
-  };
+
    useEffect(() => {
     if (selectedProducts.length > 0) {
       navigation.navigate('Checkout', { products: selectedProducts });
@@ -110,9 +98,7 @@ export default function HomeScreen({ navigation }) {
           contentContainerStyle={styles.menuContainer}
           renderItem={({ item }) => (
             <View style={styles.menuItemContainer}>
-              <TouchableOpacity onPress={() => handleMenuItemPress(item.ref)}>
                 <Text style={styles.menuItem}>{item.title}</Text>
-              </TouchableOpacity>
             </View>
           )}
           keyExtractor={(item) => item.title}
