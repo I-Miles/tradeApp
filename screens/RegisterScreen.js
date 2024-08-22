@@ -105,7 +105,7 @@ const RegisterScreen = ({ navigation }) => {
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
+        <Text style={styles.buttonText}>Registrar</Text>
       </TouchableOpacity>
     </View>
   );
